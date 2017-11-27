@@ -1,5 +1,6 @@
 const path = require('path')
 const ClosureCompiler = require('google-closure-compiler-js').webpack
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -14,17 +15,18 @@ module.exports = {
   },
 
   plugins: [
-    new ClosureCompiler({})
+    new ClosureCompiler({}),
+    new ExtractTextPlugin('styles.css')
   ],
 
   module: {
     rules: [
       {
         test: /\.(css|scss)$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader'
+        })
       },
 
       {
