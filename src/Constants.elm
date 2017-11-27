@@ -11,6 +11,16 @@ space =
     32
 
 
-pomTimeInSeconds : Int
-pomTimeInSeconds =
+pomTime : Int
+pomTime =
     1500
+
+
+fiveMinutes : Int
+fiveMinutes =
+    300
+
+
+tenMinutes : Int
+tenMinutes =
+    600

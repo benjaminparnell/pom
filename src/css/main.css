@@ -9,14 +9,21 @@ body {
 .timer > h1 {
   font-size: 175pt;
   margin-bottom: 0;
+  font-weight: 500;
 }
 
-.timer > button {
+.btn-group > button {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+button {
   border-radius: 5px;
   font-size: 20pt;
   padding: 20px;
-  border: 2px solid #B2754A;
+  border: 4px solid #B2754A;
   background: none;
   color: #B2754A;
-  font-weight: 800;
+  font-weight: 500;
+  opacity: .6;
 }

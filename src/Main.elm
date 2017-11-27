@@ -6,7 +6,7 @@ import Html.Attributes exposing (class)
 import String exposing (padLeft)
 import Keyboard
 import Time exposing (Time, every, second)
-import Constants exposing (r, space)
+import Constants exposing (r, space, pomTime, fiveMinutes, tenMinutes)
 import Models exposing (Model, initialModel)
 import Ports exposing (playSound)
 
@@ -19,7 +19,7 @@ init =
 type Msg
     = KeyMsg Keyboard.KeyCode
     | Tick Time
-    | Reset
+    | NewInterval Int
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -29,7 +29,7 @@ update msg model =
             if code == space then
                 ( { model | active = not model.active }, Cmd.none )
             else if code == r then
-                ( initialModel, Cmd.none )
+                ( { model | remaining = model.selectedTime, active = False }, Cmd.none )
             else
                 ( model, Cmd.none )
 
@@ -42,8 +42,8 @@ update msg model =
             else
                 ( model, Cmd.none )
 
-        Reset ->
-            ( initialModel, Cmd.none )
+        NewInterval interval ->
+            ( { model | remaining = interval, selectedTime = interval }, Cmd.none )
 
 
 view : Model -> Html Msg
@@ -51,7 +51,11 @@ view model =
     div [ class "max-width-4 mx-auto" ]
         [ div [ class "timer clearfix center" ]
             [ h1 [] [ text ((toString (floor ((toFloat model.remaining) / 60))) ++ ":" ++ (padLeft 2 '0' (toString (model.remaining % 60)))) ]
-            , button [ onClick Reset ] [ text "Reset" ]
+            , div [ class "btn-group" ]
+                [ button [ onClick (NewInterval pomTime) ] [ text "25" ]
+                , button [ onClick (NewInterval tenMinutes) ] [ text "10" ]
+                , button [ onClick (NewInterval fiveMinutes) ] [ text "5" ]
+                ]
             ]
         ]
 

@@ -1,16 +1,18 @@
 module Models exposing (..)
 
-import Constants exposing (pomTimeInSeconds)
+import Constants exposing (pomTime)
 
 
 type alias Model =
     { active : Bool
     , remaining : Int
+    , selectedTime : Int
     }
 
 
 initialModel : Model
 initialModel =
     { active = False
-    , remaining = pomTimeInSeconds
+    , remaining = pomTime
+    , selectedTime = pomTime
     }
