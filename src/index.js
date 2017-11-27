@@ -12,3 +12,7 @@ var mountNode = document.getElementById('main')
 var app = Elm.Main.embed(mountNode)
 
 howlerPorts(app)
+
+app.ports.title.subscribe(function (title) {
+  document.title = title
+})
