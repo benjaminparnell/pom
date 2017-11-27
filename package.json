@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "build": "webpack --config webpack-prod.config.js",
-    "dev": "webpack-dev-server --port 3000"
+    "dev": "webpack-dev-server --port 3000",
+    "heroku-postbuild": "npm run build"
   },
   "devDependencies": {
     "css-loader": "^0.28.7",
