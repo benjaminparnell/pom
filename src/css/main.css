@@ -1,0 +1,22 @@
+body {
+  background: #ffd7bb;
+}
+
+.timer {
+  color: #B2754A;
+}
+
+.timer > h1 {
+  font-size: 175pt;
+  margin-bottom: 0;
+}
+
+.timer > button {
+  border-radius: 5px;
+  font-size: 20pt;
+  padding: 20px;
+  border: 2px solid #B2754A;
+  background: none;
+  color: #B2754A;
+  font-weight: 800;
+}

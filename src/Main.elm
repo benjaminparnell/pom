@@ -1,20 +1,19 @@
 module Main exposing (..)
 
-import Html exposing (Html, div, text, button)
+import Html exposing (Html, div, text, button, h1)
 import Html.Events exposing (onClick)
+import Html.Attributes exposing (class)
+import String exposing (padLeft)
 import Keyboard
 import Time exposing (Time, every, second)
-
-
-type alias Model =
-    { active : Bool
-    , remaining : Int
-    }
+import Constants exposing (r, space)
+import Models exposing (Model, initialModel)
+import Ports exposing (playSound)
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( Model False 5, Cmd.none )
+    ( initialModel, Cmd.none )
 
 
 type Msg
@@ -27,10 +26,10 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         KeyMsg code ->
-            if code == 32 then
+            if code == space then
                 ( { model | active = not model.active }, Cmd.none )
-            else if code == 82 then
-                ( { model | active = False, remaining = 10 }, Cmd.none )
+            else if code == r then
+                ( initialModel, Cmd.none )
             else
                 ( model, Cmd.none )
 
@@ -39,25 +38,21 @@ update msg model =
                 if model.remaining > 0 then
                     ( { model | remaining = model.remaining - 1 }, Cmd.none )
                 else
-                    ( { model | active = False }, Cmd.none )
+                    ( { model | active = False }, playSound "end" )
             else
                 ( model, Cmd.none )
 
         Reset ->
-            ( { model | remaining = 100 }, Cmd.none )
+            ( initialModel, Cmd.none )
 
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ text ((toString model.active) ++ "-" ++ (toString model.remaining))
-        , text
-            (if model.remaining == 0 then
-                "Done"
-             else
-                ""
-            )
-        , button [ onClick Reset ] [ text "Reset" ]
+    div [ class "max-width-4 mx-auto" ]
+        [ div [ class "timer clearfix center" ]
+            [ h1 [] [ text ((toString (floor ((toFloat model.remaining) / 60))) ++ ":" ++ (padLeft 2 '0' (toString (model.remaining % 60)))) ]
+            , button [ onClick Reset ] [ text "Reset" ]
+            ]
         ]
 
 
