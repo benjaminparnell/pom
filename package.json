@@ -1,7 +1,8 @@
 {
   "name": "pom",
+  "version": "0.0.0",
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --config webpack-prod.config.js",
     "dev": "webpack-dev-server --port 3000"
   },
   "devDependencies": {
